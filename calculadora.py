@@ -2,29 +2,64 @@
 
 class Calculadora:
     def __init__(self):
-        self.resultado = 0
+        self.historial = [[], # NUMERO A
+                     [], # OPERACION
+                     [], # NUMERO B
+                     []] # RESULTADO
+
+    def mostrarHistorial (self):
+        if len(self.historial[3]) != 0:
+            for i in range(len(self.historial[3])):
+                a = self.historial[0][i]
+                operacion = self.historial[1][i]
+                b = self.historial[2][i]
+                resultado = self.historial[3][i]
+
+                print(f"{i+1}. {a} {operacion} {b} = {resultado}")
+            
+            input("\nAprete enter para continuar  ")
+
+        else:
+            print ("\nNo hay historial que mostrar\n")
+            input("Aprete enter para continuar  ")
 
     def sumar (self,a,b):
-        return a + b
+            resultado = a + b
+            self.historial[0].append(a)
+            self.historial[1].append("+")
+            self.historial[2].append(b)
+            self.historial[3].append(resultado)
+            return resultado
+
 
     def restar (self, a,b):
-        return a - b
+            resultado = a - b
+            self.historial[0].append(a)
+            self.historial[1].append("-")
+            self.historial[2].append(b)
+            self.historial[3].append(resultado)
+            return resultado
 
     def multiplicar (self, a,b):
-        return a * b
+            resultado = a * b
+            self.historial[0].append(a)
+            self.historial[1].append("*")
+            self.historial[2].append(b)
+            self.historial[3].append(resultado)
+            return resultado
 
     def dividir (self, a,b):
         if  b != 0:
-            return a // b
+            resultado = a / b
+            self.historial[0].append(a)
+            self.historial[1].append("/")
+            self.historial[2].append(b)
+            self.historial[3].append(resultado)
+            return resultado
         else:
             print("No se puede dividir entre cero")
 
-    def mostrarResultado (self):
-        return self.resultado
-
-# Funciones
-
-# FUN: Menú
+# FUNCIÓN: Menú
 
 def menu():
 
@@ -34,7 +69,7 @@ def menu():
         1: calculadoraOBJ.sumar,
         2: calculadoraOBJ.restar,
         3: calculadoraOBJ.multiplicar,
-        4: calculadoraOBJ.dividir
+        4: calculadoraOBJ.dividir,
     }
 
     while True:
@@ -45,9 +80,8 @@ Bienvenido a la calculadora de CTR
 2. Restar
 3. Multiplicar
 4. Dividir
-5. Ver historial
-6. Borrar historial
-7. Salir
+5. Mostrar Historial
+6. Salir
 
 Seleccione una opción: """))
             
@@ -57,7 +91,7 @@ Seleccione una opción: """))
 
         # Validar si es una opción valida
 
-        if opt in acciones:
+        if opt in acciones and opt >= 1 and opt <= 4:
 
             try:
                 a = int(input("Ingrese el número A: "))
@@ -68,17 +102,18 @@ Seleccione una opción: """))
 
             print(f"\nEl resultado es:",acciones[opt](a,b))
 
+        elif opt == 5:
+            calculadoraOBJ.mostrarHistorial()
+
+        elif opt == 6:
+            print("\n=== Muchas gracias por usar mi calculadora ===\n")
+            break
+
         else:
             print("Ingrese una opción válida ")
             continue
 
 
-# Ejecutar el programas
+# Ejecutar el programa
 
 menu()
-
-# TEST: Llamado al objeto
-
-Calcu = Calculadora()
-
-print(Calcu.dividir(10,2))
