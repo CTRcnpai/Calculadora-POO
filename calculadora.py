@@ -91,7 +91,7 @@ Seleccione una opción: """))
 
         # Validar si es una opción valida
 
-        if opt in acciones and opt >= 1 and opt <= 4:
+        if opt in acciones:
 
             try:
                 a = int(input("Ingrese el número A: "))
