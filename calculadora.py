@@ -9,6 +9,7 @@ class Calculadora:
 
     def mostrarHistorial (self):
         if len(self.historial[3]) != 0:
+            print("\n=== LISTA DE OPERACIONES EN ORDEN === \n")
             for i in range(len(self.historial[3])):
                 a = self.historial[0][i]
                 operacion = self.historial[1][i]
@@ -16,12 +17,9 @@ class Calculadora:
                 resultado = self.historial[3][i]
 
                 print(f"{i+1}. {a} {operacion} {b} = {resultado}")
-            
-            input("\nAprete enter para continuar  ")
 
         else:
             print ("\nNo hay historial que mostrar\n")
-            input("Aprete enter para continuar  ")
 
     def sumar (self,a,b):
             resultado = a + b
@@ -104,6 +102,7 @@ Seleccione una opción: """))
 
         elif opt == 5:
             calculadoraOBJ.mostrarHistorial()
+            input("\nAprete enter para continuar  ")
 
         elif opt == 6:
             print("\n=== Muchas gracias por usar mi calculadora ===\n")
