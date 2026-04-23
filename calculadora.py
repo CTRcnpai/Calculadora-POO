@@ -2,21 +2,36 @@
 
 class Calculadora:
     def __init__(self):
-        self.historial = [[], # NUMERO A
+        self.historial = [
+                     [], # NUMERO A
                      [], # OPERACION
                      [], # NUMERO B
                      []] # RESULTADO
 
+        self.operaciones = {
+             "+": lambda a,b: a + b,
+             "-": lambda a,b: a - b,
+             "*": lambda a,b: a * b,
+             "/": lambda a,b: a / b
+        }
+
+    def calcular (self,a,b,opt):
+         try:
+              resultado = self.operaciones[opt](a,b)
+              return resultado
+         except:
+              print("TODO ESTA MAL")
+
     def mostrarHistorial (self):
         if len(self.historial[3]) != 0:
-            print("\n=== LISTA DE OPERACIONES EN ORDEN === \n")
             for i in range(len(self.historial[3])):
                 a = self.historial[0][i]
                 operacion = self.historial[1][i]
                 b = self.historial[2][i]
                 resultado = self.historial[3][i]
-
                 print(f"{i+1}. {a} {operacion} {b} = {resultado}")
+            
+            
 
         else:
             print ("\nNo hay historial que mostrar\n")
@@ -64,7 +79,7 @@ def menu():
     calculadoraOBJ = Calculadora()
 
     acciones = {
-        1: calculadoraOBJ.sumar,
+        1: "+",
         2: calculadoraOBJ.restar,
         3: calculadoraOBJ.multiplicar,
         4: calculadoraOBJ.dividir,
@@ -98,7 +113,7 @@ Seleccione una opción: """))
                 print("=== Use solamente números enteros ===\n")
                 continue
 
-            print(f"\nEl resultado es:",acciones[opt](a,b))
+            print(f"\nEl resultado es:",calculadoraOBJ.calcular(a,b,opt))
 
         elif opt == 5:
             calculadoraOBJ.mostrarHistorial()
