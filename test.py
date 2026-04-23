@@ -110,16 +110,23 @@ class OperacionesLambda:
             "-" : lambda a,b: a-b
         }
     
-    def calcular (self,a,b,opt):
-        resultado = self.operaciones[opt](a,b)
+    def calcular (self,a,b,OPCION):
+        resultado = self.operaciones[OPCION](a,b)
         return resultado
+    
+acciones = {
+    1: "+",
+    2: "-"
+}
+
+print(acciones[1])
 
 a = int(input("A: "))
 b = int(input("B: "))
-opt = input("suma (+) o resta (-): ")
+opt = int(input("suma (+) o resta (-): "))
 
-
+OPCION = acciones[opt]
 
 OP = OperacionesLambda()
 
-print(OP.calcular(a,b,opt))
+print(OP.calcular(a,b,OPCION))

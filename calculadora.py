@@ -16,11 +16,13 @@ class Calculadora:
         }
 
     def calcular (self,a,b,opt):
-         try:
-              resultado = self.operaciones[opt](a,b)
-              return resultado
-         except:
-              print("TODO ESTA MAL")
+        resultado = self.operaciones[opt](a,b)
+        self.historial[0].append(a)
+        self.historial[1].append(opt)
+        self.historial[2].append(b)
+        self.historial[3].append(resultado)
+        return resultado
+
 
     def mostrarHistorial (self):
         if len(self.historial[3]) != 0:
@@ -30,47 +32,9 @@ class Calculadora:
                 b = self.historial[2][i]
                 resultado = self.historial[3][i]
                 print(f"{i+1}. {a} {operacion} {b} = {resultado}")
-            
-            
-
+ 
         else:
-            print ("\nNo hay historial que mostrar\n")
-
-    def sumar (self,a,b):
-            resultado = a + b
-            self.historial[0].append(a)
-            self.historial[1].append("+")
-            self.historial[2].append(b)
-            self.historial[3].append(resultado)
-            return resultado
-
-
-    def restar (self, a,b):
-            resultado = a - b
-            self.historial[0].append(a)
-            self.historial[1].append("-")
-            self.historial[2].append(b)
-            self.historial[3].append(resultado)
-            return resultado
-
-    def multiplicar (self, a,b):
-            resultado = a * b
-            self.historial[0].append(a)
-            self.historial[1].append("*")
-            self.historial[2].append(b)
-            self.historial[3].append(resultado)
-            return resultado
-
-    def dividir (self, a,b):
-        if  b != 0:
-            resultado = a / b
-            self.historial[0].append(a)
-            self.historial[1].append("/")
-            self.historial[2].append(b)
-            self.historial[3].append(resultado)
-            return resultado
-        else:
-            print("No se puede dividir entre cero")
+            print ("\nNo hay historial que mostrar")
 
 # FUNCIÓN: Menú
 
@@ -80,9 +44,9 @@ def menu():
 
     acciones = {
         1: "+",
-        2: calculadoraOBJ.restar,
-        3: calculadoraOBJ.multiplicar,
-        4: calculadoraOBJ.dividir,
+        2: "-",
+        3: "*",
+        4: "/",
     }
 
     while True:
@@ -97,7 +61,7 @@ Bienvenido a la calculadora de CTR
 6. Salir
 
 Seleccione una opción: """))
-            
+                   
         except ValueError: 
             print("Ingrese una opción válida")
             continue
@@ -109,15 +73,20 @@ Seleccione una opción: """))
             try:
                 a = int(input("Ingrese el número A: "))
                 b = int(input("Ingrese el número B: "))
+
+                if  b == 0:
+                    print("\nNo se puede dividir entre cero")
+                    continue
+
             except:
-                print("=== Use solamente números enteros ===\n")
+                print("\n=== Use solamente números enteros ===\n")
                 continue
 
-            print(f"\nEl resultado es:",calculadoraOBJ.calcular(a,b,opt))
+            print(f"\nEl resultado es:",calculadoraOBJ.calcular(a,b,acciones[opt]))
 
         elif opt == 5:
             calculadoraOBJ.mostrarHistorial()
-            input("\nAprete enter para continuar  ")
+            input("\nAprete enter para continuar")
 
         elif opt == 6:
             print("\n=== Muchas gracias por usar mi calculadora ===\n")
